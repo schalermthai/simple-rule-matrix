@@ -22,9 +22,16 @@ export class FnValue implements Result {
 }
 
 const parseExpression = (ast: Expression): any => {
-    if (ast.type === 'ExpressionStatement' && ast.expression.type === 'ArrowFunctionExpression') {
+    if (ast.type === 'BlockStatement') {
+        if (ast.body[0].type !== 'ReturnStatement') {
+            throw new Error('Function must return a value. Function with multiple statements are not supported');
+        }
+        return parseExpression(ast.body[0].argument);
+    }
+    else if (ast.type === 'ExpressionStatement' && ast.expression.type === 'ArrowFunctionExpression') {
         return parseExpression(ast.expression.body);
-    } else if (ast.type === 'CallExpression') {
+    }
+    else if (ast.type === 'CallExpression') {
         const args = ast.arguments.map((arg: any) => parseArgument(arg));
         const func = parseFnName(ast.callee);
         return {func, args};
@@ -43,7 +50,7 @@ const parseArgument = (arg: Expression): string => {
     if (arg.type === 'MemberExpression') {
         const name = parseVariableName(arg);
         return `input['${name}']`
-    } else if (arg.type === 'UnaryExpression') {
+    } else if (arg.type === 'UnaryExpression' || arg.type === 'BinaryExpression') {
         return evaluateExpression(arg);
     }
     return parseExpression(arg);

@@ -18,7 +18,8 @@ describe('Rule Engine', () => {
                 ),
                 rule(
                     [lessThan(30), equalsTo(10), inList([4, 5, 6])],
-                    [(inp) => add(min(-1, inp['x']), 100), '5', '6']
+                    [(inp) => { return add(min(-1, inp['x']), 100)}
+                        , '5', '6']
                 ),
                 rule(
                     [greaterThan(30), lessThan(10), inList([7, 8, 9])],

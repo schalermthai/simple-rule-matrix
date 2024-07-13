@@ -2,6 +2,16 @@ interface BaseNode {
     type: string;
 }
 
+export interface BlockStatement extends BaseNode {
+    type: 'BlockStatement';
+    body: Array<Expression>;
+}
+
+export interface ReturnStatement extends BaseNode {
+    type: 'ReturnStatement';
+    argument: Expression;
+}
+
 export interface ExpressionStatement extends BaseNode {
     type: 'ExpressionStatement';
     expression: Literal | ArrowFunctionExpression;
@@ -40,6 +50,13 @@ export interface Identifier extends BaseNode {
     name: string;
 }
 
+export interface BinaryExpression extends BaseNode {
+    type: "BinaryExpression";
+    operator: any;
+    left: Expression;
+    right: Expression;
+}
+
 export interface UnaryExpression extends BaseNode {
     type: "UnaryExpression";
     operator: any;
@@ -47,7 +64,7 @@ export interface UnaryExpression extends BaseNode {
     argument: Expression;
 }
 
-export type Expression = ExpressionStatement | ArrowFunctionExpression | SequenceExpression | CallExpression | MemberExpression | Literal | Identifier | UnaryExpression;
+export type Expression = BlockStatement | ExpressionStatement | ArrowFunctionExpression | ReturnStatement | SequenceExpression | CallExpression | MemberExpression | Literal | Identifier | BinaryExpression | UnaryExpression;
 
 
 // Utility function to evaluate AST nodes

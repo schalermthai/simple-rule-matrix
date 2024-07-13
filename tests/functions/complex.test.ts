@@ -13,7 +13,7 @@ describe('Mixing Complex Functions', () => {
             [
                 rule(
                     [equalsTo(1)],
-                    [() => add(1, id(min(5, 10)))]
+                    [() => add(1 + 0, id(min(5, 10)))]
                 ),
                 rule(
                     [equalsTo(2)],

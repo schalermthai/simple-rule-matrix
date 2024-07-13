@@ -1,0 +1,117 @@
+{
+  "inputKeys": [
+    "x",
+    "y",
+    "z"
+  ],
+  "outputKeys": [
+    "a",
+    "b",
+    "c"
+  ],
+  "rules": [
+    {
+      "predicates": [
+        {
+          "type": "greaterThan",
+          "value": 30
+        },
+        {
+          "type": "equalsTo",
+          "value": 10
+        },
+        {
+          "type": "inList",
+          "value": [
+            1,
+            2,
+            3
+          ]
+        }
+      ],
+      "result": [
+        {
+          "value": "1"
+        },
+        {
+          "value": "2"
+        },
+        {
+          "value": "3"
+        }
+      ]
+    },
+    {
+      "predicates": [
+        {
+          "type": "lessThan",
+          "value": 30
+        },
+        {
+          "type": "equalsTo",
+          "value": 10
+        },
+        {
+          "type": "inList",
+          "value": [
+            4,
+            5,
+            6
+          ]
+        }
+      ],
+      "result": [
+        {
+          "func": "add",
+          "args": [
+            {
+              "func": "min",
+              "args": [
+                -1,
+                "input['x']"
+              ]
+            },
+            100
+          ]
+        },
+        {
+          "value": "5"
+        },
+        {
+          "value": "6"
+        }
+      ]
+    },
+    {
+      "predicates": [
+        {
+          "type": "greaterThan",
+          "value": 30
+        },
+        {
+          "type": "lessThan",
+          "value": 10
+        },
+        {
+          "type": "inList",
+          "value": [
+            7,
+            8,
+            9
+          ]
+        }
+      ],
+      "result": [
+        {
+          "value": "7"
+        },
+        {
+          "value": "8"
+        },
+        {
+          "value": "9"
+        }
+      ]
+    }
+  ]
+}

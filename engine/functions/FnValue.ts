@@ -1,6 +1,6 @@
 import {OutputFunction} from "./OutputFunction";
 import * as esprima from "esprima";
-import {evaluateExpression, Expression} from "../marshaller/astEval";
+import {evaluateExpression, Expression, MemberExpression} from "../marshaller/astEval";
 import {Result} from "./Result";
 import {value, Value} from "./Value";
 
@@ -29,10 +29,10 @@ const parseExpression = (ast: Expression): any => {
         const func = parseFnName(ast.callee);
         return {func, args};
     } else if (ast.type === 'MemberExpression') {
-        return ast.property.type === 'Identifier'
-            ? {func: "id", args: [`input['${ast.property.name}']`]}
-            : {func: "id", args: [`input['${ast.property.value}']`]
-        };
+        const name = parseVariableName(ast);
+        const args = [`input['${name}']`]
+        return { func: "id", args }
+
     } else if (ast.type === 'Literal') {
         return ast.value;
     }
@@ -41,9 +41,8 @@ const parseExpression = (ast: Expression): any => {
 
 const parseArgument = (arg: Expression): string => {
     if (arg.type === 'MemberExpression') {
-        return arg.property.type === 'Identifier'
-            ? `input['${arg.property.name}']`
-            : `input['${arg.property.value}']`
+        const name = parseVariableName(arg);
+        return `input['${name}']`
     } else if (arg.type === 'UnaryExpression') {
         return evaluateExpression(arg);
     }
@@ -54,9 +53,13 @@ const parseFnName = (callee: Expression): string => {
     if (callee.type === 'SequenceExpression') {
         return parseFnName(callee.expressions[1]);
     } else if (callee.type === 'MemberExpression') {
-        return callee.property.type === 'Identifier'
-            ? `${callee.property.name}`
-            : `${callee.property.value}`
+        return parseVariableName(callee);
     }
     return '';
+}
+
+const parseVariableName = (ast: MemberExpression) => {
+    return ast.property.type === 'Identifier'
+        ? `${ast.property.name}`
+        : `${ast.property.value}`
 }

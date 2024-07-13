@@ -23,7 +23,7 @@ export interface SequenceExpression extends BaseNode {
     expressions: Expression[];
 }
 
-interface MemberExpression extends BaseNode {
+export interface MemberExpression extends BaseNode {
     type: 'MemberExpression';
     object: Expression;
     property: Literal | Identifier;

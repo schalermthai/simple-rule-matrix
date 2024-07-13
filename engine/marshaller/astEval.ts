@@ -2,14 +2,20 @@ interface BaseNode {
     type: string;
 }
 
+export interface FunctionDeclaration extends BaseNode {
+    type: 'FunctionDeclaration';
+    body: BlockStatement;
+    params: Identifier[];
+}
+
 export interface BlockStatement extends BaseNode {
     type: 'BlockStatement';
-    body: Array<Expression>;
+    body: Array<ExpressionBody>;
 }
 
 export interface ReturnStatement extends BaseNode {
     type: 'ReturnStatement';
-    argument: Expression;
+    argument: ExpressionBody;
 }
 
 export interface ExpressionStatement extends BaseNode {
@@ -19,23 +25,24 @@ export interface ExpressionStatement extends BaseNode {
 
 interface ArrowFunctionExpression extends BaseNode {
     type: 'ArrowFunctionExpression';
-    body:Expression;
+    body:ExpressionBody;
+    params: Identifier[];
 }
 
 interface CallExpression extends BaseNode {
     type: 'CallExpression';
-    callee: Expression;
-    arguments: Array<Expression>;
+    callee: ExpressionBody;
+    arguments: Array<ExpressionBody>;
 }
 
 export interface SequenceExpression extends BaseNode {
     type: "SequenceExpression";
-    expressions: Expression[];
+    expressions: ExpressionBody[];
 }
 
 export interface MemberExpression extends BaseNode {
     type: 'MemberExpression';
-    object: Expression;
+    object: ExpressionBody;
     property: Literal | Identifier;
     computed: boolean;
 }
@@ -53,18 +60,20 @@ export interface Identifier extends BaseNode {
 export interface BinaryExpression extends BaseNode {
     type: "BinaryExpression";
     operator: any;
-    left: Expression;
-    right: Expression;
+    left: ExpressionBody;
+    right: ExpressionBody;
 }
 
 export interface UnaryExpression extends BaseNode {
     type: "UnaryExpression";
     operator: any;
     prefix: true;
-    argument: Expression;
+    argument: ExpressionBody;
 }
 
-export type Expression = BlockStatement | ExpressionStatement | ArrowFunctionExpression | ReturnStatement | SequenceExpression | CallExpression | MemberExpression | Literal | Identifier | BinaryExpression | UnaryExpression;
+export type FunctionHeader = FunctionDeclaration | ExpressionStatement;
+
+export type ExpressionBody = BlockStatement | ArrowFunctionExpression | ReturnStatement | SequenceExpression | CallExpression | MemberExpression | Literal | Identifier | BinaryExpression | UnaryExpression;
 
 
 // Utility function to evaluate AST nodes

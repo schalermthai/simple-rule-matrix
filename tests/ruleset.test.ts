@@ -3,7 +3,6 @@ import {equalsTo, greaterThan, inList, lessThan} from "../engine/predicates";
 import {add, min} from "../engine/functions";
 import {deserialize, serializer} from "../engine/marshaller";
 
-
 describe('Rule Engine', () => {
     let rules: RuleSet;
 
@@ -18,7 +17,7 @@ describe('Rule Engine', () => {
                 ),
                 rule(
                     [lessThan(30), equalsTo(10), inList([4, 5, 6])],
-                    [(inp) => { return add(min(-1, inp['x']), 100)}
+                    [(inp) => add(min(-1, inp['x']), 100)
                         , '5', '6']
                 ),
                 rule(

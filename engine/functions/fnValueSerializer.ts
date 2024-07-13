@@ -34,7 +34,7 @@ const parseFnBody = (ast: ExpressionBody, inputParam: Identifier): any => {
         case 'MemberExpression':
             return { func: "id", args: [`input['${parseVariableName(ast, inputParam)}']`] };
         case 'Literal':
-            return evaluateExpression(ast);
+            return { func: "id", args: [evaluateExpression(ast)] };
         case 'Identifier':
             return { func: "id", args: [undefined] };
         default:

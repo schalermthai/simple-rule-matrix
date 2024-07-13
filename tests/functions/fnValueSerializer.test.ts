@@ -40,7 +40,8 @@ describe('Function Value Serializer', () => {
 
             const serialized = serializer(rules);
             console.log(serialized)
-            expect(serialized).toEqual(`{"inputKeys":["x"],"outputKeys":["result"],"rules":[{"predicates":[{"type":"equalsTo","value":2}],"result":[2]}]}`);
+            expect(serialized).toEqual(`{"inputKeys":["x"],"outputKeys":["result"],"rules":[{"predicates":[{"type":"equalsTo","value":2}],"result":[{"func":"id","args":[2]}]}]}`);
+            expect(deserialize(serialized).evaluate(input)).toEqual(rules.evaluate(input));
         });
 
         test('function statement: evaluate rule 3', () => {
@@ -59,6 +60,7 @@ describe('Function Value Serializer', () => {
             const serialized = serializer(rules);
             console.log(serialized)
             expect(serialized).toEqual(`{"inputKeys":["x"],"outputKeys":["result"],"rules":[{"predicates":[{"type":"equalsTo","value":3}],"result":[{"func":"min","args":[-1,"input['x']"]}]}]}`);
+            expect(deserialize(serialized).evaluate(input)).toEqual(rules.evaluate(input));
         });
 
         test('function statement: evaluate rule 4', () => {
@@ -77,6 +79,7 @@ describe('Function Value Serializer', () => {
             const serialized = serializer(rules);
             console.log(serialized)
             expect(serialized).toEqual(`{"inputKeys":["x"],"outputKeys":["result"],"rules":[{"predicates":[{"type":"equalsTo","value":4}],"result":[{"func":"id","args":["input['x']"]}]}]}`);
+            expect(deserialize(serialized).evaluate(input)).toEqual(rules.evaluate(input));
         });
 
         test('function statement: evaluate rule 5', () => {
@@ -132,7 +135,8 @@ describe('Function Value Serializer', () => {
 
             const serialized = serializer(rules);
             console.log(serialized)
-            expect(serialized).toEqual(`{"inputKeys":["x"],"outputKeys":["result"],"rules":[{"predicates":[{"type":"equalsTo","value":2}],"result":[2]}]}`);
+            expect(serialized).toEqual(`{"inputKeys":["x"],"outputKeys":["result"],"rules":[{"predicates":[{"type":"equalsTo","value":2}],"result":[{"func":"id","args":[2]}]}]}`);
+            expect(deserialize(serialized).evaluate(input)).toEqual(rules.evaluate(input));
         });
 
         test('expression statement with block: evaluate rule 3', () => {
@@ -151,6 +155,7 @@ describe('Function Value Serializer', () => {
             const serialized = serializer(rules);
             console.log(serialized)
             expect(serialized).toEqual(`{"inputKeys":["x"],"outputKeys":["result"],"rules":[{"predicates":[{"type":"equalsTo","value":3}],"result":[{"func":"min","args":[-1,"input['x']"]}]}]}`);
+            expect(deserialize(serialized).evaluate(input)).toEqual(rules.evaluate(input));
         });
 
         test('expression statement with block: evaluate rule 4', () => {
@@ -169,6 +174,7 @@ describe('Function Value Serializer', () => {
             const serialized = serializer(rules);
             console.log(serialized)
             expect(serialized).toEqual(`{"inputKeys":["x"],"outputKeys":["result"],"rules":[{"predicates":[{"type":"equalsTo","value":4}],"result":[{"func":"id","args":["input['x']"]}]}]}`);
+            expect(deserialize(serialized).evaluate(input)).toEqual(rules.evaluate(input));
         });
 
         test('expression statement with block: evaluate rule 5', () => {
@@ -224,7 +230,8 @@ describe('Function Value Serializer', () => {
 
             const serialized = serializer(rules);
             console.log(serialized)
-            expect(serialized).toEqual(`{"inputKeys":["x"],"outputKeys":["result"],"rules":[{"predicates":[{"type":"equalsTo","value":2}],"result":[2]}]}`);
+            expect(serialized).toEqual(`{"inputKeys":["x"],"outputKeys":["result"],"rules":[{"predicates":[{"type":"equalsTo","value":2}],"result":[{"func":"id","args":[2]}]}]}`);
+            expect(deserialize(serialized).evaluate(input)).toEqual(rules.evaluate(input));
         });
 
         test('expression statement with no block: evaluate rule 3', () => {
@@ -243,6 +250,7 @@ describe('Function Value Serializer', () => {
             const serialized = serializer(rules);
             console.log(serialized)
             expect(serialized).toEqual(`{"inputKeys":["x"],"outputKeys":["result"],"rules":[{"predicates":[{"type":"equalsTo","value":3}],"result":[{"func":"min","args":[-1,"input['x']"]}]}]}`);
+            expect(deserialize(serialized).evaluate(input)).toEqual(rules.evaluate(input));
         });
 
         test('expression statement with no block: evaluate rule 4', () => {
@@ -260,6 +268,7 @@ describe('Function Value Serializer', () => {
             const serialized = serializer(rules);
             console.log(serialized)
             expect(serialized).toEqual(`{"inputKeys":["x"],"outputKeys":["result"],"rules":[{"predicates":[{"type":"equalsTo","value":4}],"result":[{"func":"id","args":["input['x']"]}]}]}`);
+            expect(deserialize(serialized).evaluate(input)).toEqual(rules.evaluate(input));
         });
     })
 })

@@ -15,11 +15,10 @@ requiring dynamic decision-making and logic handling.
 ## Usage
 
 ```typescript
-import {RuleSet} from "../engine";
+import {RuleSet, rule} from "../engine";
 import {equalsTo, greaterThan, inList, lessThan} from "../engine/predicates";
 import {add, min, value} from "../engine/functions";
 import {deserialize, serializer} from "../engine/marshaller";
-import {rule} from "../engine/Rule";
 
 // Define example rules
 const rules = RuleSet.create(

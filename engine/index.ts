@@ -1,2 +1,2 @@
-export {Rule} from "./Rule";
-export {RuleSet} from "./RuleSet";
+export * from "./Rule";
+export * from "./RuleSet";

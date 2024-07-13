@@ -1,8 +1,7 @@
-import {RuleSet} from "../../engine";
+import {rule, RuleSet} from "../../engine";
 import {equalsTo} from "../../engine/predicates";
 import {id} from "../../engine/functions";
 import {deserialize} from "../../engine/marshaller";
-import {rule} from "../../engine/Rule";
 
 describe('Id Function', () => {
     let rules: RuleSet;

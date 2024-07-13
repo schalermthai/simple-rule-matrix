@@ -1,8 +1,7 @@
-import {RuleSet} from "../engine";
+import {RuleSet, rule} from "../engine";
 import {equalsTo, greaterThan, inList, lessThan} from "../engine/predicates";
 import {add, min} from "../engine/functions";
 import {deserialize, serializer} from "../engine/marshaller";
-import {rule} from "../engine/Rule";
 
 
 describe('Rule Engine', () => {

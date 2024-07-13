@@ -1,8 +1,7 @@
-import {RuleSet} from "../../engine";
+import {rule, RuleSet} from "../../engine";
 import {equalsTo} from "../../engine/predicates";
 import {add, id, min} from "../../engine/functions";
 import {deserialize} from "../../engine/marshaller";
-import {rule} from "../../engine/Rule";
 
 describe('Mixing Complex Functions', () => {
     let rules: RuleSet;

@@ -11,6 +11,9 @@ export const parseFunction = (ast: FunctionDeclaration | ExpressionStatement): a
     if (ast.type === 'FunctionDeclaration') {
         return parseBlockStatement(ast.body, ast.params[0]);
     } else if (ast.type === 'ExpressionStatement' && ast.expression.type === 'ArrowFunctionExpression') {
+        if (ast.expression.body.type === 'Identifier' && ast.expression.body.name === 'undefined') {
+            throw new Error('Function must return a value. Function with multiple statements are not supported');
+        }
         return ast.expression.body.type === 'BlockStatement'
             ? parseBlockStatement(ast.expression.body, ast.expression.params[0])
             : parseFnBody(ast.expression.body, ast.expression.params[0]);
@@ -18,7 +21,7 @@ export const parseFunction = (ast: FunctionDeclaration | ExpressionStatement): a
 }
 
 const parseBlockStatement = (ast: BlockStatement, inputParam: Identifier): any => {
-    if (ast.body[0].type !== 'ReturnStatement') {
+    if (ast.body.length === 0 || ast.body[0].type !== 'ReturnStatement') {
         throw new Error('Function must return a value. Function with multiple statements are not supported');
     }
     return parseFnBody(ast.body[0].argument, inputParam);
@@ -32,6 +35,8 @@ const parseFnBody = (ast: ExpressionBody, inputParam: Identifier): any => {
             return { func: "id", args: [`input['${parseVariableName(ast, inputParam)}']`] };
         case 'Literal':
             return evaluateExpression(ast);
+        case 'Identifier':
+            return { func: "id", args: [undefined] };
         default:
             return null;
     }

@@ -8,7 +8,8 @@ export class RuleSet {
     evaluate(input: Record<string, any>): Record<string, any> | null {
         for (let rule of this.rules) {
             if (rule.evaluate(input, this.inputKeys)) {
-                return this.mapOutput(rule.result.map(r => r.evaluate(input)))
+                const output = rule.result.map(r => r.evaluate(input));
+                return this.mapOutput(output);
             }
         }
         return null;
@@ -24,11 +25,8 @@ export class RuleSet {
 
     private mapOutput(resultValues: Value[]): Record<string, any> | null {
         const outputMap: Record<string, any> = {};
-        if (resultValues) {
-            this.outputKeys.forEach((key, index) => outputMap[key] = resultValues[index].getValue());
-            return outputMap;
-        }
-        return null;
+        this.outputKeys.forEach((key, index) => outputMap[key] = resultValues[index].getValue());
+        return outputMap;
     }
 
     static create(inputKeys: string[], outputKeys: string[], rules: Rule[] = []): RuleSet {

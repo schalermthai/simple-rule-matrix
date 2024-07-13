@@ -3,7 +3,7 @@ import * as esprima from "esprima";
 import { FunctionHeader } from "../marshaller/astEval";
 import {Result} from "./Result";
 import {value, Value} from "./Value";
-import {parseFunction} from "./FnValueSerializer";
+import {parseFunction} from "./fnValueSerializer";
 
 export class FnValue implements Result {
     constructor(private fn: (input: any) => OutputFunction | any) {
